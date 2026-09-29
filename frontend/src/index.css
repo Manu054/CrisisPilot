@@ -1,0 +1,127 @@
+@import "tailwindcss";
+
+@theme {
+  --font-sans: 'Inter', 'Plus Jakarta Sans', system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+  --font-heading: 'Plus Jakarta Sans', 'Inter', system-ui, sans-serif;
+  
+  --color-brand-primary: #7567E8;
+  --color-brand-primary-hover: #6658DC;
+  --color-brand-lavender: #8175EA;
+  --color-brand-subtle: #F3F0FD;
+  --color-brand-border: #E4DEFC;
+
+  --color-navy-dark: #17213D;
+  --color-navy-muted: #64748B;
+  --color-surface-bg: #F8FAFC;
+  --color-surface-card: #FFFFFF;
+  --color-surface-border: #E6EAF0;
+
+  --color-accent-blue: #7BA7E8;
+  --color-accent-mint: #8BCDB5;
+  --color-accent-peach: #E9B99B;
+  --color-accent-rose: #E7A8B7;
+  --color-accent-yellow: #E7C77B;
+}
+
+:root {
+  --font-sans: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+  --font-heading: 'Plus Jakarta Sans', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+}
+
+body {
+  margin: 0;
+  padding: 0;
+  font-family: var(--font-sans);
+  background-color: #F8FAFC;
+  color: #17213D;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  overflow-x: hidden;
+}
+
+#root {
+  min-height: 100vh;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+}
+
+h1, h2, h3, h4, h5, h6, .font-heading {
+  font-family: var(--font-heading);
+  letter-spacing: -0.015em;
+}
+
+/* Custom Scrollbars */
+::-webkit-scrollbar {
+  width: 5px;
+  height: 5px;
+}
+::-webkit-scrollbar-track {
+  background: #F1F4F9;
+}
+::-webkit-scrollbar-thumb {
+  background: #CBD5E1;
+  border-radius: 4px;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: #94A3B8;
+}
+
+/* Subtle Enterprise Card */
+.enterprise-card {
+  background-color: #FFFFFF;
+  border: 1px solid #E8EBF1;
+  border-radius: 14px;
+  box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.03), 0 1px 2px -1px rgba(0, 0, 0, 0.02);
+  transition: border-color 0.15s ease, box-shadow 0.15s ease;
+}
+
+.enterprise-card-hover:hover {
+  border-color: #D6DCE7;
+  box-shadow: 0 4px 12px 0 rgba(23, 33, 61, 0.05);
+}
+
+/* Clean subtle badge */
+.badge-lavender {
+  background-color: #F3F0FD;
+  color: #6455D8;
+  border: 1px solid #E2DCFA;
+}
+
+.badge-mint {
+  background-color: #F0F9F5;
+  color: #2D7A5D;
+  border: 1px solid #D1EFE4;
+}
+
+.badge-rose {
+  background-color: #FCF1F3;
+  color: #9C334A;
+  border: 1px solid #F5D3DB;
+}
+
+.badge-blue {
+  background-color: #F2F7FD;
+  color: #2E62A6;
+  border: 1px solid #D8E6FA;
+}
+
+.badge-amber {
+  background-color: #FEF9ED;
+  color: #8C6417;
+  border: 1px solid #F8ECC7;
+}
+
+/* Subtle pulse for critical alerts */
+@keyframes subtlePulse {
+  0%, 100% {
+    opacity: 1;
+  }
+  50% {
+    opacity: 0.55;
+  }
+}
+
+.subtle-pulse {
+  animation: subtlePulse 2.5s cubic-bezier(0.4, 0, 0.6, 1) infinite;
+}
