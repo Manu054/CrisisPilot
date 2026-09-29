@@ -1,8 +1,9 @@
 import React from 'react';
-import { BrowserRouter, Routes, Route, Navigate, useLocation } from 'react-router-dom';
+import { BrowserRouter, Routes, Route, Navigate, Outlet } from 'react-router-dom';
 import { AuthProvider } from './context/AuthContext';
 import { CrisisProvider, useCrisis } from './context/CrisisContext';
 import { ProtectedRoute } from './components/auth/ProtectedRoute';
+import { LandingPage } from './components/landing/LandingPage';
 import { LoginPage } from './components/auth/LoginPage';
 import { SignupPage } from './components/auth/SignupPage';
 import { Sidebar } from './components/layout/Sidebar';
@@ -49,22 +50,7 @@ const MainLayout: React.FC = () => {
         <Header />
 
         <main className="flex-1 overflow-y-auto pb-16">
-          <Routes>
-            <Route path="/overview" element={<HomeDashboard />} />
-            <Route path="/crisis/new" element={<NewCrisisWizard />} />
-            <Route path="/decision-center" element={<DecisionCenterPage />} />
-            <Route path="/decision-center/:id" element={<DecisionCenterPage />} />
-            <Route path="/inventory" element={<InventoryAnalyticsPage />} />
-            <Route path="/simulations" element={<SimulatorPage />} />
-            <Route path="/past-decisions" element={<PastCasesPage />} />
-            <Route path="/memory" element={<OrganizationalMemoryPage />} />
-            <Route path="/insights" element={<InsightsPage />} />
-            <Route path="/reports" element={<ReportsPage />} />
-            <Route path="/settings" element={<SettingsPage />} />
-            <Route path="/help" element={<HelpPage />} />
-            <Route path="/" element={<Navigate to="/overview" replace />} />
-            <Route path="*" element={<Navigate to="/overview" replace />} />
-          </Routes>
+          <Outlet />
         </main>
       </div>
 
@@ -80,19 +66,33 @@ export default function App() {
       <AuthProvider>
         <CrisisProvider>
           <Routes>
-            {/* Public Auth Routes */}
+            {/* Public Routes (No authentication, no sidebar) */}
+            <Route path="/" element={<LandingPage />} />
             <Route path="/login" element={<LoginPage />} />
             <Route path="/signup" element={<SignupPage />} />
 
             {/* Protected SaaS Application Routes */}
             <Route
-              path="/*"
               element={
                 <ProtectedRoute>
                   <MainLayout />
                 </ProtectedRoute>
               }
-            />
+            >
+              <Route path="/overview" element={<HomeDashboard />} />
+              <Route path="/crisis/new" element={<NewCrisisWizard />} />
+              <Route path="/decision-center" element={<DecisionCenterPage />} />
+              <Route path="/decision-center/:id" element={<DecisionCenterPage />} />
+              <Route path="/inventory" element={<InventoryAnalyticsPage />} />
+              <Route path="/simulations" element={<SimulatorPage />} />
+              <Route path="/past-decisions" element={<PastCasesPage />} />
+              <Route path="/memory" element={<OrganizationalMemoryPage />} />
+              <Route path="/insights" element={<InsightsPage />} />
+              <Route path="/reports" element={<ReportsPage />} />
+              <Route path="/settings" element={<SettingsPage />} />
+              <Route path="/help" element={<HelpPage />} />
+              <Route path="*" element={<Navigate to="/overview" replace />} />
+            </Route>
           </Routes>
         </CrisisProvider>
       </AuthProvider>

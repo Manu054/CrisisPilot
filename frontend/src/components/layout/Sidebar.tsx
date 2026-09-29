@@ -43,7 +43,7 @@ export const Sidebar: React.FC<SidebarProps> = ({ onOpenChat }) => {
 
   const handleLogout = () => {
     logout();
-    navigate('/login');
+    navigate('/');
   };
 
   const getInitials = (name?: string) => {

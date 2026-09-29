@@ -5,7 +5,13 @@ import { ShieldAlert, Lock, Mail, User, Building, Eye, EyeOff, ArrowRight, Loade
 
 export const SignupPage: React.FC = () => {
   const navigate = useNavigate();
-  const { signup } = useAuth();
+  const { signup, isAuthenticated } = useAuth();
+
+  React.useEffect(() => {
+    if (isAuthenticated) {
+      navigate('/overview', { replace: true });
+    }
+  }, [isAuthenticated, navigate]);
 
   const [name, setName] = useState('');
   const [email, setEmail] = useState('');
@@ -15,6 +21,10 @@ export const SignupPage: React.FC = () => {
   const [showPassword, setShowPassword] = useState(false);
   const [error, setError] = useState<string | null>(null);
   const [loading, setLoading] = useState(false);
+
+  if (isAuthenticated) {
+    return null;
+  }
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -59,7 +69,10 @@ export const SignupPage: React.FC = () => {
     <div className="min-h-screen bg-[#F8FAFC] flex flex-col justify-center py-12 sm:px-6 lg:px-8 text-[#17213D]">
       <div className="sm:mx-auto sm:w-full sm:max-w-md text-center">
         {/* Logo & Brand */}
-        <div className="inline-flex items-center justify-center gap-2.5 mb-3">
+        <div 
+          onClick={() => navigate('/')}
+          className="inline-flex items-center justify-center gap-2.5 mb-3 cursor-pointer"
+        >
           <div className="w-10 h-10 rounded-xl bg-gradient-to-tr from-[#6455D8] to-[#9B8CF6] flex items-center justify-center text-white shadow-md shadow-[#6455D8]/20">
             <ShieldAlert className="w-5 h-5" />
           </div>
@@ -68,7 +81,7 @@ export const SignupPage: React.FC = () => {
           </span>
         </div>
         <h2 className="text-xl font-bold tracking-tight text-[#17213D]">
-          Register your organization workspace
+          Create your CrisisPilot account
         </h2>
         <p className="mt-1 text-xs text-slate-500 max-w-sm mx-auto">
           Start recording business crises, executing simulated decisions, and learning with HindSight memory
@@ -206,11 +219,11 @@ export const SignupPage: React.FC = () => {
               {loading ? (
                 <>
                   <Loader2 className="w-4 h-4 animate-spin" />
-                  <span>Creating Organization Workspace...</span>
+                  <span>Creating Account...</span>
                 </>
               ) : (
                 <>
-                  <span>Create Workspace & Sign In</span>
+                  <span>Create Account</span>
                   <ArrowRight className="w-3.5 h-3.5" />
                 </>
               )}
@@ -222,7 +235,7 @@ export const SignupPage: React.FC = () => {
         <p className="mt-6 text-center text-xs text-slate-500">
           Already have an account?{' '}
           <Link to="/login" className="font-semibold text-[#6455D8] hover:text-[#5244C2] transition-colors">
-            Sign in here
+            Sign In
           </Link>
         </p>
       </div>
